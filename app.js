@@ -151,19 +151,17 @@ const deleteUser = (req, res) => {
 
 // 3. ROUTES
 
-app.use('/api/v1/tours', tourRouter); // Middleware used only on tours resource
 const tourRouter = express.Router();
+const userRouter = express.Router();
+
+app.use('/api/v1/tours', tourRouter); // Middleware used only on tours resource
+app.use('/api/v1/users', userRouter); // Middleware used only on users resource
 
 tourRouter.route('/').get(getAllTours).post(createTour);
 tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
-
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 // 4. STARTING THE SERVER
 
