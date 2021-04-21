@@ -130,6 +130,8 @@ app
   .patch(updateTour)
   .delete(deleteTour);
 
+app.route('/api/v1/users').get(getAllUsers);
+
 // 4. STARTING THE SERVER
 
 app.listen(port, () => {
