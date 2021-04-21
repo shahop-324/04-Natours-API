@@ -1,9 +1,28 @@
 const fs = require('fs');
+const morgan = require('morgan');
 const express = require('express');
 
 const app = express();
 
-app.use(express.json()); // Middleware
+// 1. MIDDLEWARES
+
+app.use(morgan('dev'));
+
+app.use(express.json()); // Middleware // use method is used to add middlewares to our middleware stack
+
+// Remember that in each middleware we have access to request and response objects.
+// We also have access to a special function next() to call next middleware in our middleware stack
+
+app.use((req, res, next) => {
+  // Middleware since use method is applied
+  console.log('Hello from the middleware 👋🏻');
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 const port = 3000;
 
@@ -11,9 +30,13 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
+// 2. ROUTE HANDLERS
+
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length,
     data: {
       tours: tours,
@@ -97,16 +120,17 @@ const deleteTour = (req, res) => {
 // app.patch('/api/v1/tours/:id', updateTour);
 // app.delete('/api/v1/tours/:id', deleteTour);
 
-app
-  .route('/api/v1/tours')
-  .get(getAllTours)
-  .post(createTour);
+// 3. ROUTES
+
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
 
 app
   .route('/api/v1/tours/:id')
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+// 4. STARTING THE SERVER
 
 app.listen(port, () => {
   console.log(`App running on port ${port} ...`);
