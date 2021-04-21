@@ -7,12 +7,12 @@ const userRouter = require(`./Routes/userRoutes`);
 const app = express();
 
 // 1. MIDDLEWARES
-
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.use(express.json()); // Middleware // use method is used to add middlewares to our middleware stack
 app.use(express.static(`${__dirname}/public`));
-
 
 // Remember that in each middleware we have access to request and response objects.
 // We also have access to a special function next() to call next middleware in our middleware stack
