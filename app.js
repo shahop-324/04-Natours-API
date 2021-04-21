@@ -1,4 +1,3 @@
-const fs = require('fs');
 const morgan = require('morgan');
 const express = require('express');
 
@@ -28,12 +27,6 @@ app.use((req, res, next) => {
 });
 
 const port = 3000;
-
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
-
-// 2. ROUTE HANDLERS
 
 // 3. ROUTES
 
