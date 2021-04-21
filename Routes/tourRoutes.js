@@ -1,6 +1,6 @@
 const express = require('express');
-const tourController = require('./../Controllers/tourController');
-const { route } = require('./userRoutes');
+const tourController = require('../Controllers/tourController');
+//const { route } = require('./userRoutes');
 
 const router = express.Router();
 
