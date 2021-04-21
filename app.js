@@ -26,15 +26,13 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = 3000;
+
 
 // 3. ROUTES
 
 app.use('/api/v1/tours', tourRouter); // Middleware used only on tours resource
 app.use('/api/v1/users', userRouter); // Middleware used only on users resource
 
-// 4. STARTING THE SERVER
 
-app.listen(port, () => {
-  console.log(`App running on port ${port} ...`);
-});
+
+module.exports = app;

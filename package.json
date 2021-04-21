@@ -4,7 +4,7 @@
   "description": "A tour booking site",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon server.js"
   },
   "author": "Shreyansh shah",
   "license": "MIT",
