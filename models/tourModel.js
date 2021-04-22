@@ -11,7 +11,7 @@ const tourSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'A tour must have a duartion'],
   },
-  maxGripuSize: {
+  maxGroupSize: {
     type: Number,
     required: [true, 'A tour must have a group size'],
   },
@@ -51,6 +51,7 @@ const tourSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  startDates: [Date],
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
