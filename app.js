@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const morgan = require('morgan');
 const express = require('express');
 
@@ -7,7 +8,7 @@ const userRouter = require(`./Routes/userRoutes`);
 const app = express();
 
 // 1. MIDDLEWARES
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
