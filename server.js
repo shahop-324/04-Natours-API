@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -16,7 +17,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((con) => {
-    console.log(con.connections);
+    // console.log(con.connections);
     console.log('DB Connection successful');
   });
 
