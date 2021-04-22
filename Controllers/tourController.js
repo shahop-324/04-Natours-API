@@ -54,17 +54,11 @@ exports.getAllTours = async (req, res) => {
 
     if (req.query.page) {
       const numTours = await Tour.countDocuments();
-      if (skipVal > numTours) throw new Error('This Page does not exist');
+      if (skipVal >= numTours) throw new Error('This Page does not exist');
     }
 
     // EXECUTE QUERY
     const tours = await query;
-
-    // const query = Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
 
     // SEND RESPONSE
     res.status(200).json({
