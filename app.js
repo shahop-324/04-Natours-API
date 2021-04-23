@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 const morgan = require('morgan');
 const express = require('express');
+
+const AppError = require('./utils/appError');
+const globalErrorHandler = require('./Controllers/errorController');
 
 const tourRouter = require(`./Routes/tourRoutes`);
 const userRouter = require(`./Routes/userRoutes`);
@@ -36,10 +40,9 @@ app.use('/api/v1/tours', tourRouter); // Middleware used only on tours resource
 app.use('/api/v1/users', userRouter); // Middleware used only on users resource
 
 app.all('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'fail',
-    message: `Can't find ${req.originalUrl} on this server`,
-  });
+  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
