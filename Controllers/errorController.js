@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable node/no-unsupported-features/es-syntax */
 /* eslint-disable no-console */
 
@@ -20,6 +21,12 @@ const handleValidationErrorDB = (err) => {
   const message2 = `Invalid Input data. ${errors.join('. ')}`;
   return new AppError(message2, 400);
 };
+
+const handleJWTError = (err) =>
+  new AppError(`${err.message} Please log In again.`, 401);
+
+const handleJWTExpirationError = (err) =>
+  new AppError(`${err.message} Please log In again.`, 401);
 
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
@@ -68,6 +75,14 @@ module.exports = (err, req, res, next) => {
     if (error._message === 'Tour validation failed') {
       //console.log(error.name);
       error = handleValidationErrorDB(error);
+    }
+    if (error.name === 'JsonWebTokenError') {
+      //console.log(error.name);
+      error = handleJWTError(error);
+    }
+    if (error.name === 'TokenExpiredError') {
+      //console.log(error.name);
+      error = handleJWTExpirationError(error);
     }
 
     sendErrorProd(error, res);
