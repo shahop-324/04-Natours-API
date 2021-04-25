@@ -12,6 +12,7 @@ const globalErrorHandler = require('./Controllers/errorController');
 
 const tourRouter = require(`./Routes/tourRoutes`);
 const userRouter = require(`./Routes/userRoutes`);
+const reviewRouter = require('./Routes/reviewRoutes');
 const APIFeatures = require('./utils/apiFeatures');
 
 const app = express();
@@ -81,6 +82,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/tours', tourRouter); // Middleware used only on tours resource
 app.use('/api/v1/users', userRouter); // Middleware used only on users resource
+app.use('/api/v1/reviews', reviewRouter); // Middleware used only on reviews resource
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
