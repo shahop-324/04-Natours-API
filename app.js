@@ -40,10 +40,10 @@ app.use('/api', limiter);
 app.use(express.json({ limit: '10kb' })); // Middleware // use method is used to add middlewares to our middleware stack
 
 // Data sanitization against NoSQL query injection
-app.use(mongosanitize());
+// app.use(mongosanitize());
 
 // Data sanitization against XSS
-app.use(xss());
+// app.use(xss());
 
 // Prevent Parameter Pollution
 app.use(
