@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.deleteOne = Model => catchAsync(async (req, res, next) => {
     const document = await Model.findByIdAndRemove(req.params.id);
@@ -51,6 +52,27 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
   }
   res.status(200).json({
     status: 'success',
+    data: {
+      data: document,
+    },
+  });
+});
+
+exports.getAll = Model => catchAsync(async (req, res, next) => {
+  // eslint-disable-next-line no-console
+
+  // EXECUTE QUERY
+  const features = new APIFeatures(Model.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const document = await features.query;
+
+  // SEND RESPONSE
+  res.status(200).json({
+    status: 'success',
+    results: document.length,
     data: {
       data: document,
     },
