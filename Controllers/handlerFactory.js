@@ -15,7 +15,6 @@ exports.deleteOne = Model => catchAsync(async (req, res, next) => {
     });
   });
 
-
 exports.updateOne = Model => catchAsync(async (req, res, next) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -64,7 +63,6 @@ exports.getAll = Model => catchAsync(async (req, res, next) => {
   let filter = {};
   if (req.params.tourId) filter = { tour: req.params.tourId };
 
-  
   // EXECUTE QUERY
   const features = new APIFeatures(Model.find(filter), req.query)
     .filter()
